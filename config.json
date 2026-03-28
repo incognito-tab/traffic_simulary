@@ -1,0 +1,8 @@
+{
+    "TrafficLightIntelligence": "L0",
+    "CarsRateA": 1,
+    "CarsRateB": 1,
+    "CarsRateC": 1,
+    "CarsRateD": 1,
+    "CarsPriority": "GreenLight"
+}
