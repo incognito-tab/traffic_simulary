@@ -1,0 +1,41 @@
+﻿Starting test with 8 cars
+Starting trafficLight0 with state Green
+Starting trafficLight1 with state Red
+Starting trafficLight2 with state Green
+Starting trafficLight3 with state Red
+Starting trafficLight4 with state Green
+Starting trafficLight5 with state Red
+Starting trafficLight6 with state Green
+Starting trafficLight7 with state Red
+Starting explorer0 - going to (4,0)
+Starting explorer1 - going to (4,0)
+Starting explorer2 - going to (0,0)
+Starting explorer3 - going to (2,0)
+Starting explorer4 - going to (0,0)
+Starting explorer5 - going to (0,0)
+Starting explorer6 - going to (4,0)
+Starting explorer7 - going to (2,0)
+Starting intersection
+py : Traceback (most recent call last):
+At line:1 char:1
++ py test_fix.py 2>&1 | Out-File 
+-FilePath d:\trafficsimlary\test_outpu ...
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecifie 
+   d: (Traceback (most recent call last)  
+  ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeComma 
+   ndError
+ 
+  File "D:\trafficsimlary\test_fix.py", 
+line 125, in <module>
+    env.start()
+    ~~~~~~~~~^^
+  File "D:\trafficsimlary\test_fix.py", 
+line 48, in patched_start
+    int_msgs = {n: len(m) for n, m in 
+agents_with_msgs.items() if n == 
+"intersection"}
+                   ~~~^^^
+TypeError: object of type 'int' has no 
+len()

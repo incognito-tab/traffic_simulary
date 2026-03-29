@@ -37,7 +37,7 @@ def main():
 
     # ── Build environment ─────────────────────────────────────────
     env = TurnBasedEnvironment(delay_after_turn=0, ms_per_turn=utils.NO_MS_PER_TURN)
-    intersection_agent = IntersectionAgent()
+    intersection_agent = IntersectionAgent(total_cars=utils.NO_CARS)
 
     # Traffic lights
     index = 0

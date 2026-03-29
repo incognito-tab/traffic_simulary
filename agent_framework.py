@@ -93,6 +93,8 @@ class TurnBasedEnvironment:
 
             # Each agent acts
             for name, agent in active_agents.items():
+                if not self._running:
+                    break
                 if agent._running:
                     agent.act(turn_messages.get(name, []))
 

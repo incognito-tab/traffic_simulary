@@ -22,6 +22,7 @@ class CarAgent(TurnBasedAgent):
         self._final_x = 0
         self._final_y = 0
         self._unavailable_cells: list[list[bool]] = []
+        self._started = False  # tracks whether car has sent its initial position
 
     def setup(self):
         self._x = self._start_pos
@@ -35,10 +36,19 @@ class CarAgent(TurnBasedAgent):
                 self._unavailable_cells[i][j] = True
 
         print(f"Starting {self.name} - going to ({self._final_x},{self._final_y})")
-        self.send("intersection", utils.str_msg("position", self._x, self._y, self._id))
+        # Don't send position here — the reply would arrive before the car
+        # is ready to process it (skipped turns) and get discarded.
 
     def act(self, messages: list[Message]):
         if self._turns > self._skipped_turns:
+            # On the first eligible turn, send the initial position message
+            if not self._started:
+                self._started = True
+                self.send("intersection",
+                          utils.str_msg("position", self._x, self._y, self._id))
+                self._turns += 1
+                return  # wait for the reply next turn
+
             for message in messages:
                 print(f"\t[{message.sender} -> {self.name}]: {message.content}")
 

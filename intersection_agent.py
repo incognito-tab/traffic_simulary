@@ -12,12 +12,14 @@ from intersection_gui import IntersectionGUI
 
 class IntersectionAgent(TurnBasedAgent):
 
-    def __init__(self):
+    def __init__(self, total_cars: int = 0):
         super().__init__()
         self.car_positions: dict[str, list[str]] = {}
         self.traffic_light_positions: dict[str, list[str]] = {}
         self._traffic_light_states: list[list[utils.TrafficLightState]] = []
         self._no_cars_per_cell: list[list[int]] = []
+        self._total_cars = total_cars
+        self._finished_cars = 0
         self._form_gui = IntersectionGUI()
 
         # Start GUI in a separate thread
@@ -117,6 +119,14 @@ class IntersectionAgent(TurnBasedAgent):
             del self.car_positions[sender]
 
         self._no_cars_per_cell[x][y] -= 1
+        self._finished_cars += 1
+        print(f"\t[{self.name}]: {sender} finished ({self._finished_cars}/{self._total_cars})")
+
+        if self._finished_cars >= self._total_cars:
+            print(f"\n*** All {self._total_cars} cars have arrived! Simulation complete. ***")
+            self._form_gui.update_gui()  # final GUI update
+            if self._environment:
+                self._environment.stop()
 
     def _handle_change(self, sender: str, position: list[str]):
         # Get old and new positions
